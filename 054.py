@@ -135,4 +135,4 @@ for hand in hands:
   if hand1 > hand2:
     player1_score += 1
 
-print player1_score
+print(player1_score)
