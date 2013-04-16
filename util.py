@@ -24,3 +24,11 @@ def fib(num):
       fib._values[num] = fibval
       return fibval
 fib._values = {0: 0, 1: 1}
+
+def gcd(a, b):
+  while b:
+    a, b = b, a % b
+  return a
+
+def lcm(a, b):
+  return (a * b) // gcd(a, b)
