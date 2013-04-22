@@ -1,19 +1,12 @@
+from math import sqrt
+
 def even(num):
-  '''
-  shorthand
-  '''
   return num % 2 == 0
 
 def odd(num):
-  '''
-  shorthand
-  '''
   return num % 2 == 1
 
 def fib(num):
-  '''
-  Calculates Fibonacci numbers while remembering previous results
-  '''
   if num < 0:
     raise ValueError
 
@@ -32,3 +25,9 @@ def gcd(a, b):
 
 def lcm(a, b):
   return (a * b) // gcd(a, b)
+
+def prime_factors(num, start=2):
+  '''Return all prime factors (ordered) of num in a list'''
+  candidates = xrange(start, int(sqrt(num)) + 1)
+  factor = next((x for x in candidates if (num % x == 0)), None)
+  return ([factor] + prime_factors(num / factor, factor) if factor else [num])
