@@ -1,3 +1,5 @@
+from itertools import count, islice, ifilter
+
 from math import sqrt
 
 def even(num):
@@ -31,3 +33,17 @@ def prime_factors(num, start=2):
   candidates = xrange(start, int(sqrt(num)) + 1)
   factor = next((x for x in candidates if (num % x == 0)), None)
   return ([factor] + prime_factors(num / factor, factor) if factor else [num])
+
+def primes(start=2):
+  return ifilter(is_prime, count(start))
+
+def is_prime(n):
+  if n < 3 or n % 2 == 0:
+    return (n == 2)
+  elif any((n % x == 0) for x in xrange(3, int(sqrt(n)) + 1, 2)):
+    return False
+  return True
+
+def index(n, iterable):
+  'Returns the nth item'
+  return islice(iterable, n, n+1).next()
