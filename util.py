@@ -1,5 +1,7 @@
 #!python
-from itertools import count, islice, ifilter
+from itertools import count, islice, ifilter, takewhile, groupby, product
+
+from collections import Counter
 
 from math import sqrt
 
@@ -60,6 +62,14 @@ def index(n, iterable):
   'Returns the nth item'
   return islice(iterable, n, n+1).next()
 
+def eratosthenes(n):
+  '''using the sieve of eratosthenes, generate all primes less than n'''
+  multiples = set()
+  for i in xrange(2, n+1):
+    if i not in multiples:
+      yield i
+      multiples.update(xrange(i**2, n+1, i))
+
 def triangle_number(num):
   '''returns sum of 1->num'''
   return sum(xrange(num+1))
@@ -76,5 +86,18 @@ def is_palindrome(num):
   '''Tests the palindromicity of a number'''
   return num == int(''.join(reversed(str(num))))
 
-def divisors(num):
-  pass
+def factorize(num):
+  """Factorize a number returning occurrences of its prime factors"""
+  return ((factor, ilen(fs)) for (factor, fs) in groupby(prime_factors(num)))
+
+def divisors(n):
+  '''Returns all divisors of num: divisors(16) -> 1, 2, 4, 8, 16'''
+  all_factors = [[f**p for p in range(fp+1)] for (f, fp) in factorize(n)]
+  return (product(ns) for ns in product(*all_factors))
+
+
+def collatz(n):
+  return ((n/2) if even(n) else (n*3 + 1))
+
+def collatz_length(n):
+  return 1 + collatz_length(collatz(n)) if n>1 else 0

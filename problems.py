@@ -3,7 +3,7 @@ import data
 
 from util import *
 
-from itertools import takewhile
+from itertools import takewhile, count
 from operator import mul
 
 def problem1():
@@ -36,13 +36,24 @@ def problem9():
   return (a*b*c for (a, b, c,) in triplets if a**2 + b**2 == c**2).next()
 
 def problem10():
-  return sum(takewhile(lambda x: x < 2000000, primes()))
+  return sum(eratosthenes(2000000))
+  #return sum(takewhile(lambda x: x < 2000000, primes()))
 
 def problem11():
   pass
 
 def problem12():
-  return None
-  # triangles = (triangle_number(n) for n in count(1))
-  # return first(t for t in triangles if ilen(divisors(t)) > 500)
+  return first(t for t in (triangle_number(n) for n in count(1)) if ilen(divisors(t)) > 500)
+
+def problem13():
+  nums = (int(x) for x in data.problem13.strip().splitlines())
+  return int(str(sum(nums))[:10])
   
+def problem14():
+  return max(xrange(1, 1000000), key=collatz_length)
+
+def problem15():
+  '''Theres some pretty high level combinatorics on this one
+  so I trusted the experts'''
+  n = 20
+  return factorial(2*n) / (factorial(n)**2)
