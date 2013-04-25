@@ -1,7 +1,10 @@
 #!python
-from itertools import takewhile, count
+import data
 
 from util import *
+
+from itertools import takewhile
+from operator import mul
 
 def problem1():
   return sum(n for n in xrange(1000) if n % 3 == 0 or n % 5 == 0)
@@ -25,7 +28,8 @@ def problem7():
   return index(10000, primes())
 
 def problem8():
-  pass
+  digits = ''.join(data.problem8.strip().splitlines())
+  return max(reduce(mul,map(int, list(digits[i:i+5]))) for i in xrange(len(digits[:-4])))
 
 def problem9():
   triplets = ((a, b, 1000-a-b) for a in xrange(1,999) for b in xrange(a+1, 999))
@@ -38,6 +42,7 @@ def problem11():
   pass
 
 def problem12():
-  triangles = (triangle_number(n) for n in count(1))
-  return first(t for t in triangles if ilen(divisors(t)) > 500)
+  return None
+  # triangles = (triangle_number(n) for n in count(1))
+  # return first(t for t in triangles if ilen(divisors(t)) > 500)
   
